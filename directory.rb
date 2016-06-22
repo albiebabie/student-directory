@@ -30,9 +30,9 @@ end
 def print(students)
   index = 0
   while students.length > index
-    puts puts "#{index + 1}. #{students[index][:name]}, #{students[index][:cohort]}, " +
-         "#{students[index][:hobbies]}, #{students[index][:country]}, " +
-         "#{students[index][:height]}"
+    puts "#{index + 1}. #{students[index][:name].center(10)} #{students[index][:cohort].to_s.center(15)} " +
+          "#{students[index][:hobbies].center(15)} #{students[index][:country].center(15)} " +
+          "#{students[index][:height].center(15)}"
     index += 1
   end
 end
