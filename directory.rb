@@ -1,41 +1,36 @@
-# let's put all the students into an array
+def input_students                                    # method "input_students"
+  puts 'Please enter the names of the students'       # prints string to screen
+  puts 'To finish, just hit return twice'             # prints string to screen
 
-students = [
-  {name: "Dr. Hannibal Lecter",         cohort: :november},
-  {name:"Darth Vader",                  cohort: :november},
-  {name:"Nurse Ratched",                cohort: :november},
-  {name:"Michael Corleone",             cohort: :november},
-  {name:"Alex DeLarge",                 cohort: :november},
-  {name:"The Wicked Witch of the West", cohort: :november},
-  {name:"Terminator",                   cohort: :november},
-  {name:"Freddy Krueger",               cohort: :november},
-  {name:"The Joker",                    cohort: :november},
-  {name:"Joffrey Baratheon",            cohort: :november},
-  {name:"Norman Bates",                 cohort: :november}
-]
+  students = [] # creates and empty array to store our future students
+  name = gets.chomp # gets the first name inputted by user
 
-# Extract the code into methods:
-# First, print the header
-# Second, print the list of students
-# Final, print the header
+  until name.empty? # until the name is empty, repeats this code
+    students << { name: name, cohort: :november } # add student hash to the array
+    puts "Now we have #{students.count} students" # print string inc interpolation
 
-def print_header
-  puts "The students of Villains academy"
-  puts "-------------"
+    name = gets.chomp # get another name from the user
+  end
+  students # return the array of students
 end
 
+def print_header # method called "print_header"
+  puts 'The students of Villains academy' # prints string to screen
+  puts '-------------' # prints string to screen
+end
 
-def print(students)
-students.each do |student|
-  puts "#{student[:name]} (#{student[:cohort]} cohort)"
+def print(students) # method called "print" argument(students)
+  students.each_with_index do |student, tom| # iterate through each students and assign to block value "student"
+  puts "#{tom+1}. #{student[:name]} (#{student[:cohort]} cohort)" # printing the string with interpolations
   end
 end
 
-
-def print_footer(students)
-puts "Overall, we have #{students.count} great students"
+def print_footer(students) # method "called print_footer" argument(students)
+  puts "Overall, we have #{students.count} great students" # prints string with interpolation
 end
-# nothing happens until we call the methods >>
+
+students = input_students
+# nothing happens until we call the methods>>
 print_header
 print(students)
 print_footer(students)
