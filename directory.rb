@@ -1,15 +1,25 @@
 def input_students
-  puts 'Please enter the names of the students'
-  puts 'To finish, just hit return twice'
   students = []
-  name = gets.chomp
+  name = 'Alan'
 
   until name.empty?
-    students << { name: name, cohort: :november }
+    puts 'Please enter the names of the student'
+    name = gets.chomp.capitalize
+    break if name.empty?
+    puts 'Please enter your hobbies'
+    hobbies = gets.chomp.capitalize
+    puts 'Please enter your country of birth'
+    country = gets.chomp.capitalize
+    puts 'Please enter your height'
+    height = gets.chomp
+
+    puts 'To finish, just hit return twice'
+
+    students << {name: name, cohort: :November, hobbies: hobbies, country: country, height: height}
     puts "Now we have #{students.count} students"
-    name = gets.chomp
+
   end
-  students
+    students
 end
 
 def print_header
@@ -20,7 +30,9 @@ end
 def print(students)
   index = 0
   while students.length > index
-    puts "#{students[index][:name]} (#{students[index][:cohort]} cohort)"
+    puts puts "#{index + 1}. #{students[index][:name]}, #{students[index][:cohort]}, " +
+         "#{students[index][:hobbies]}, #{students[index][:country]}, " +
+         "#{students[index][:height]}"
     index += 1
   end
 end
