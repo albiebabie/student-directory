@@ -5,8 +5,8 @@ end
 
 def print(students)
 students.map do |student|
-  name = student[:name][0].downcase
-  if name.downcase.start_with?('j')
+  name = student[:name]
+  if name.length < 12
     puts "#{student[:name]} (#{student[:cohort]} cohort)"
   end
 end
@@ -19,9 +19,9 @@ end
 def input_students
  puts "Please enter the names of the students"
  puts "To finish, just hit return twice"
- # create an empty array
+
  students = []
- # get the first name
+
  name = gets.chomp
 
  while !name.empty? do
