@@ -1,16 +1,16 @@
+$months = ['January', 'February', 'March',
+          'April', 'May', 'June', 'July',
+          'August', 'September', 'October',
+          'November', 'December']
 def input_students
-  months = ['January', 'February', 'March',
-            'April', 'May', 'June', 'July',
-            'August', 'September', 'October',
-            'November', 'December']
   students = []
   name = 'Alan'
   default = 'July'
   until name.empty?
-    puts 'Please enter the names of the student'
+    puts 'Please enter the name of the student'
     name = gets.chomp.capitalize
     break if name.empty?
-    puts 'Please enter your cohort'
+    puts 'Please enter your cohort (using full month)'
     cohort = gets.chomp.capitalize
     puts 'Please enter your hobbies'
     hobbies = gets.chomp.capitalize
@@ -18,8 +18,7 @@ def input_students
     country = gets.chomp.capitalize
     puts 'Please enter your height'
     height = gets.chomp
-
-    if cohort.empty? or !months.include?(cohort)
+    if cohort.empty? or !$months.include?(cohort)
       cohort = default
     end
     puts 'To finish, just hit return twice'
@@ -40,8 +39,19 @@ def print(students)
           "#{students[index][:height].center(15)}"
     index += 1
   end
-end
-
+  end
+  def print_by_cohort(students)
+    cohort_month = []
+    puts "See by specific cohort month? - Enter Full Month Please"
+    month = gets.chomp.capitalize
+      students.map do |student|
+        if student[:cohort] == month
+          cohort_month << student[:name]
+      end
+    end
+    puts "Cohort #{month}"
+    puts "Students are: #{cohort_month}"
+  end
 def print_footer(names)
   puts "Overall, we have #{names.count} great students"
 end
@@ -49,3 +59,4 @@ students = input_students
 print_header
 print(students)
 print_footer(students)
+print_by_cohort(students)
