@@ -39,19 +39,22 @@ def print(students)
           "#{students[index][:height].center(15)}"
     index += 1
   end
-  end
-  def print_by_cohort(students)
-    cohort_month = []
-    puts "See by specific cohort month? - Enter Full Month Please"
-    month = gets.chomp.capitalize
-      students.map do |student|
-        if student[:cohort] == month
-          cohort_month << student[:name]
-      end
+end
+def print_by_cohort(students)
+  cohort_month = []
+  puts "Sort by specific cohort - Please Enter Full Month"
+  month = gets.chomp.capitalize
+  students.map do |student|
+    if student[:cohort] == month
+      cohort_month << [student[:name], student[:cohort], student[:hobbies], student[:country], student[:height]]
     end
-    puts "Cohort #{month}"
-    puts "Students are: #{cohort_month}"
   end
+  puts "Cohort #{month}"
+  puts "Students are: "
+  cohort_month.each do |cohort|
+  puts cohort.each { |details| details }.join(" ")
+  end
+end
 def print_footer(names)
   puts "Overall, we have #{names.count} great students"
 end
