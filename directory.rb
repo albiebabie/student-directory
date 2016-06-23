@@ -11,22 +11,20 @@ def input_students
 
   until name.empty?
     puts 'Please enter the name of a student'
-    name = gets.chop.capitalize
+    name = gets.gsub(/\n/,'').capitalize
     break if name.empty?
     puts 'Please enter your cohort (using full month)'
-    cohort = gets.chop.capitalize
+    cohort = gets.gsub(/\n/,'').capitalize
     puts 'Please enter your hobbies'
-    hobbies = gets.chop.capitalize
+    hobbies = gets.gsub(/\n/,'').capitalize
     puts 'Please enter your country of birth'
-    country = gets.chop.capitalize
+    country = gets.gsub(/\n/,'').capitalize
     puts 'Please enter your height'
-    height = gets.chop
-
+    height = gets.gsub(/\n/,'')
     if cohort.empty? or !$months.include?(cohort)
       cohort = default
     end
     students << {name: name, cohort: cohort, hobbies: hobbies, country: country, height: height}
-
     if students.count == 1
       puts "Now we have 1 student."
     else
@@ -54,12 +52,16 @@ end
 
 def print_by_cohort(students)
   cohort_month = []
-  puts "To sort students by Cohort"
-  puts "Enter a Month (no abbreviations)"
-  month = gets.chop.capitalize
-  students.map do |student|
-    if student[:cohort] == month
-      cohort_month << [student[:name], student[:hobbies], student[:country], student[:height]]
+  if students.empty?
+    exit
+  else
+    puts "To sort students by Cohort"
+    puts "Enter a Month (no abbreviations)"
+    month = gets.gsub(/\n/,'').capitalize
+    students.map do |student|
+      if student[:cohort] == month
+        cohort_month << [student[:name], student[:hobbies], student[:country], student[:height]]
+      end
     end
   end
   puts "Students in #{month} Cohort:"
@@ -69,12 +71,15 @@ def print_by_cohort(students)
 end
 
 def print_footer(names)
-  if names.length == 1
+  if names.empty?
+    puts "There are no students in this cohort!"
+  elsif names.length == 1
     puts "Overall, we have 1 great student"
   else
-  puts "Overall, we have #{names.count} great students"
+    puts "Overall, we have #{names.count} great students"
+  end
 end
-end
+
 students = input_students
 print_header
 print(students)
