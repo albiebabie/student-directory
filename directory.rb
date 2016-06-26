@@ -1,13 +1,23 @@
 @months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
-           'August', 'September', 'October','November', 'December']
+           'August', 'September', 'October', 'November', 'December']
 @students = [] # empty array that can be accessed by all methods
+
+def load_students
+  file = File.open('students.csv', 'r')
+  file.readlines.each do |line|
+    name, cohort = line.chomp.split(', ')
+    @students << { name: name, cohort: cohort }
+  end
+  file.close
+end
 
 def save_students
   # open the file for writing
-  file = File.open('students.csv', 'w')
+  file = File.open('students.csv', 'w') # taken the w out of the ''
   # iterate over the arry of students
   @students.each do |student|
-    student_data = [student[:name], student[:cohort], student[:hobbies], student[:country], student[:height]]
+    student_data = [student[:name], student[:cohort], student[:hobbies],
+                    student[:country], student[:height]]
     csv_line = student_data.join(',')
     file.puts csv_line
   end
@@ -34,7 +44,7 @@ def input_students
       cohort = default
     end
     @students << { name: name, cohort: cohort, hobbies: hobbies,
-                    country: country, height: height }
+                   country: country, height: height }
     if @students.count == 1
       puts 'Now we have 1 student.'
     else
@@ -42,7 +52,7 @@ def input_students
     end
     puts 'If you\'re finished entering students, just hit return twice. Or...'
   end
-    @students
+  @students
 end
 
 def interactive_menu
@@ -56,6 +66,7 @@ def print_menu
   puts '1. Input the students'
   puts '2. Show the students'
   puts '3. Save the list to students.csv'
+  puts '4. Load the students from students.csv'
   puts '9. Exit'
 end
 
@@ -73,6 +84,8 @@ def process(selection)
     show_students
   when '3'
     save_students
+  when '4'
+    load_students
   when '9'
     exit
   else
@@ -90,9 +103,8 @@ def print_student_details
   index = 0
   @students.each do |student|
 
-    puts "#{index + 1}. #{@students[index][:name].center(10)} #{@students[index][:cohort].to_s.center(15)} " +
-         "#{@students[index][:hobbies].center(15)} #{@students[index][:country].center(15)} " +
-         "#{@students[index][:height].center(15)}"
+    puts "#{index + 1}. #{@students[index][:name].center(10)} #{@students[index][:cohort].to_s.center(15)} "
+
     index += 1
   end
 end
