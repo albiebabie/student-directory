@@ -37,10 +37,12 @@ def input_students
   puts "To finish, just hit return twice"
   # get the first name
   name = STDIN.gets.chomp
+  puts "Please enter cohort name"
+  cohort = STDIN.gets.chomp
   # while the name is not empty, repeat this code
   while !name.empty? do
     # add the student hash to the array
-    @students << {name: name, cohort: :november}
+    add_students(name,cohort)
     puts "Now we have #{@students.count} students"
     # get another name from the user
     name = STDIN.gets.chomp
@@ -84,14 +86,13 @@ def load_students(filename = "students.csv")
   file = File.open(filename, "r")
   file.readlines.each do |line|
   name, cohort = line.chomp.split(',')
-    @students << {name: name, cohort: cohort.to_sym}
+    add_students(name,cohort)
   end
   file.close
 end
 
 def try_load_students
-  filename = ARGV.first# first argument from the command line
-  return if filename.nil? # get out of the method if it isn't given
+  filename = "students.csv" 
   if File.exists?(filename) # if it exists
     load_students(filename)
      puts "Loaded #{@students.count} from #{filename}"
@@ -99,6 +100,10 @@ def try_load_students
     puts "Sorry, #{filename} doesn't exist."
     exit # quit the program
   end
+end
+
+def add_students(name,cohort)
+  @students << {name: name, cohort: cohort}
 end
 
 try_load_students
