@@ -28,7 +28,7 @@ def process(selection)
     save_students
   when '4'
     puts 'Loading...'
-    load_students
+    try_load_students
   when '9'
     exit
   else
@@ -71,7 +71,8 @@ def print_footer
 end
 
 def save_students
-  file = File.open('students.csv', 'w')
+  puts 'Please enter a file name:'
+  file = File.open(gets.chomp, 'w')
   @students.each do |student|
     student_data = [student[:name], student[:cohort]]
     csv_line = student_data.join(',')
@@ -90,10 +91,14 @@ def load_students(filename = 'students.csv')
 end
 
 def try_load_students
-  filename = 'students.csv'
+  puts 'Please enter the filename you wish to load:'
+  filename = gets.chomp
+  return if filename.nil?
   if File.exist?(filename)
     load_students(filename)
     puts "Loaded #{@students.count} from #{filename}"
+  else
+    puts "Sorry, #{filename} doesn't exisst."
   end
 end
 
@@ -101,5 +106,4 @@ def add_students(name, cohort)
   @students << { name: name, cohort: cohort }
 end
 
-try_load_students
 interactive_menu
